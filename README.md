@@ -1,6 +1,8 @@
 Disclaimer, do not run this script on machine that you don't want to reinstall with new system.. Also, it's not fully automatized and interactive..
 ```
-DEVICE=/dev/nvme0n1
+export DEVICE=/dev/nvme0n1
+export SWAPSIZE=48g
+
 fdisk ${DEVICE}
 
 mkfs.fat -F 32 ${DEVICE}p1
@@ -15,7 +17,7 @@ btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@swap
 btrfs subvolume create /mnt/@var_log
 btrfs subvolume create /mnt/@.snapshots
-btrfs filesystem mkswapfile --size 48g --uuid clear /mnt/@swap/swapfile
+btrfs filesystem mkswapfile --size ${SWAPSIZE} --uuid clear /mnt/@swap/swapfile
 umount /mnt
 
 mount --mkdir -o defaults,noatime,ssd,compress=zstd,space_cache=v2,discard=async,subvol=@ /dev/mapper/root /mnt
