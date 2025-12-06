@@ -1,3 +1,4 @@
+Disclaimer, do not run this script on machine that you don't want to reinstall with new system.. Also, it's not fully automatized and interactive..
 ```
 DEVICE=/dev/nvme0n1
 fdisk ${DEVICE}
@@ -44,5 +45,5 @@ echo GRUB_ENABLE_CRYPTODISK=y >> /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/efi --boot-directory=/boot --bootloader-id=GRUB --modules="luks2 pbkdf2" --uefi --no-uefi-secure-boot /dev/mapper/root
 grub-mkconfig -o /boot/grub/grub.cfg
 
-update-initramfs -ku
+update-initramfs -cu
 ```
