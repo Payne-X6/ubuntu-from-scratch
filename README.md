@@ -3,7 +3,11 @@ Disclaimer, do not run this script on machine that you don't want to reinstall w
 export DEVICE=/dev/nvme0n1
 export SWAPSIZE=48g
 
-fdisk ${DEVICE}
+sfdisk ${DEVICE} <<EOF
+label: gpt
+size=512MiB, type=U
+type=L
+EOF
 
 mkfs.fat -F 32 ${DEVICE}p1
 
